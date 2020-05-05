@@ -1,8 +1,6 @@
 #include<iostream>
 #include<conio.h>
-//Global variables
 int flag=0;
-// An AVL tree node
 struct node
 {
     int key;
@@ -10,7 +8,6 @@ struct node
     struct node *right;
     int height;
 }*root;
-//Class Declaration
 class avlTree
 {
 public:
