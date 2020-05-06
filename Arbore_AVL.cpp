@@ -1,0 +1,115 @@
+#include "Arbore_AVL.h"
+#include "ABC.h"
+
+
+Arbore_AVL::Arbore_AVL(Nod_AVL *root) {
+    this->root = root;
+}
+
+Arbore_AVL::~Arbore_AVL() {
+    clear();
+}
+
+Nod_AVL * Arbore_AVL::LLR(Nod_AVL *cur) {
+    Nod_AVL* newN = cur->get_left();
+    cur->get_left() == newN->get_right();
+    newN->get_right() == cur;
+    newN->balance_factor = height(newN->get_left()) - height(newN->get_right());
+    newN->balance_factor = height(cur->get_left()) - height(cur->get_right());
+    return newN;
+}
+
+Nod_AVL * Arbore_AVL::LRR(Nod_AVL *cur) {
+    cur->get_left() == RRR(cur->get_left());
+    return LLR(cur);
+}
+
+Nod_AVL * Arbore_AVL::RRR(Nod_AVL *cur) {
+    Nod_AVL* newN = cur->get_right();
+    cur->get_right() == newN->get_left();
+    newN->get_left() == cur;
+    newN->balance_factor = height(newN->get_left()) - height(newN->get_right());
+    cur->balance_factor = height(cur->get_left()) - height(cur->get_right());
+    return newN;
+}
+
+Nod_AVL * Arbore_AVL::RLR(Nod_AVL *cur) {
+    cur->get_right() == LLR(cur->get_right());
+    return RRR(cur);
+}
+
+int Arbore_AVL::balance(Nod_AVL *n) {
+    if (n == nullptr) return 0;
+    int leftheight = height(n->get_left());
+    int rightheight = height(n->get_right());
+    n ->balance_factor = rightheight- leftheight;
+    return n->balance_factor;
+}
+
+void Arbore_AVL::rebalance(Nod_AVL *n) {
+    while (n != nullptr){
+        balance(n);
+        if(n->balance_factor >=2 || n->balance_factor <= -2)
+            rotate(n);
+        n = parent(n);
+    }
+}
+
+void Arbore_AVL::rotate(Nod_AVL *n) {
+    Nod_AVL *child;
+    if (n->balance_factor < -1){
+        child = n->get_left();
+        balance(child);
+        if (child->balance_factor == 1)
+            LRR(n);
+        else
+            LLR(n);
+    }
+    else {
+        child = n-> get_right();
+        balance(child);
+        if (child->balance_factor == -1)
+            RLR(n);
+        else
+            RRR(n);
+    }
+}
+
+void Arbore_AVL::printInOrder(Nod_AVL *n) const {
+    if(n == nullptr) return;
+    printInOrder(n->get_left());
+    std::cout << n->get_info() << " ";
+    printInOrder(n->get_right());
+}
+
+void Arbore_AVL::printPostOrder(Nod_AVL *n) const {
+    if(n == nullptr) return;
+    printPostOrder(n->get_left());
+    printPostOrder(n->get_right());
+    std::cout << n->get_info() <<" ";
+}
+
+void Arbore_AVL::printPreOrder(Nod_AVL *n) const {
+    if(n == nullptr) return;
+    std::cout << n->get_info() << " ";
+    printPreOrder(n->get_left());
+    printPreOrder(n->get_right());
+}
+
+void Arbore_AVL::clear() {
+    while(root != nullptr)
+        deleten(root, root->get_info());
+}
+
+void Arbore_AVL::print_balance(Nod_AVL *curr, std::ostream &out) const {
+    if(curr != nullptr){
+        print_balance(curr->get_left(), out);
+        out << curr ->get_info() << "balance factor" << curr->balance_factor << std::endl;
+        print_balance(curr -> get_right(), out);
+    }
+}
+
+std::ostream &operator<< (std::ostream &out, Arbore_AVL arb){
+    arb.print_balance(arb.get_rad(), out);
+    return out;
+}
