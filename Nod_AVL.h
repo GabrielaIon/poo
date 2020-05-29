@@ -1,9 +1,10 @@
-#ifndef UNTITLED13_NOD_AVL_H
-#define UNTITLED13_NOD_AVL_H
+#ifndef FINAL_NOD_AVL_H
+#define FINAL_NOD_AVL_H
 
 #include "Nod.h"
 
-class Nod_AVL :public Nod{
+class Nod_AVL : public Nod{
+    int balance_factor;
 public:
     Nod_AVL(int info = 0, Nod_AVL *left = nullptr, Nod_AVL *right = nullptr, int balance_factor=0);
     virtual ~Nod_AVL();
@@ -14,8 +15,8 @@ public:
     Nod_AVL *get_right();
     void set_right(Nod_AVL *n_right);
 
-    int balance_factor;
+
 };
 
 
-#endif //UNTITLED13_NOD_AVL_H
+#endif //FINAL_NOD_AVL_H
