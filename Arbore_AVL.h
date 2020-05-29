@@ -1,5 +1,5 @@
-#ifndef UNTITLED13_ARBORE_AVL_H
-#define UNTITLED13_ARBORE_AVL_H
+#ifndef FINAL_ARBORE_AVL_H
+#define FINAL_ARBORE_AVL_H
 
 
 #include "Nod_AVL.h"
@@ -23,8 +23,7 @@ public:
     void printPostOrder(Nod_AVL* n) const;
     void printPreOrder(Nod_AVL* n) const;
     void print_balance(Nod_AVL *curr, std::ostream &out) const;
-    friend std::ostream &operator<< (std::ostream &out, Arbore_AVL arb);
+    friend std::ostream &operator<< (std::ostream &out, const Arbore_AVL& arb);
 };
 
-
-#endif //UNTITLED13_ARBORE_AVL_H
+#endif //FINAL_ARBORE_AVL_H
