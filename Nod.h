@@ -1,7 +1,3 @@
-//
-// Created by Mini Wof on 5/29/2020.
-//
-
 #ifndef FINAL_NOD_H
 #define FINAL_NOD_H
 
