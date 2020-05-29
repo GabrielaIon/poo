@@ -41,7 +41,7 @@ void ABC::insert(int info) {
             return;
     }
     nr_nod++;
-    Nod_AVL *newNode = new Nod_AVL(info, prev);
+    auto *newNode = new Nod_AVL(info, prev);
     if (info < prev->get_info())
         prev->set_left(newNode);
     else
@@ -84,22 +84,22 @@ void ABC::deleten(Nod_AVL *n, int info) {
         if (cur == rad)
             rad = cur->get_left();
         else if (ok == 1)
-            parent->get_left() == cur->get_left();
+            parent->set_left(cur->get_left());
         else
-            parent->get_right() == cur->get_left();
+            parent->set_right(cur->get_left());
 
-        cur->get_left() == nullptr;
+        cur->set_left(nullptr);
         delete cur;
     }
     else if (cur->get_left() == nullptr){
         if (cur == rad)
             rad = cur->get_right();
         else if (ok == 1)
-            parent->get_left() == cur->get_right();
+            parent->set_left(cur->get_right());
         else
-            parent->get_right() == cur->get_right();
+            parent->set_right(cur->get_right());
 
-        cur->get_right() == nullptr;
+        cur->set_right(nullptr);
         delete cur;
     }
     else{
@@ -114,23 +114,23 @@ void ABC::deleten(Nod_AVL *n, int info) {
         }
 
         if(newNode != cur->get_right()){
-            newNodeParent->get_left() == newNode->get_right();
-            newNode->get_right() == cur->get_right();
+            newNodeParent->set_left(newNode->get_right());
+            newNode->set_right(cur->get_right());
         }
 
         if (cur == rad){
             rad = newNode;
         }
         else if (ok == 1){
-            parent->get_left() == newNode;
+            parent->set_left(newNode);
         }
         else{
-            parent->get_right() == newNode;
+            parent->set_right(newNode);
         }
-        newNode->get_left() == cur->get_left();
+        newNode->set_left(cur->get_left());
 
-        cur->get_left() == nullptr;
-        cur->get_right() == nullptr;
+        cur->set_left(nullptr);
+        cur->set_right(nullptr);
 
         delete cur;
     }
@@ -161,7 +161,7 @@ Nod_AVL * ABC::parent(Nod_AVL *n) {
 }
 
 Nod_AVL * ABC::parentHelper(Nod_AVL *curr, Nod_AVL *n) {
-    if(curr == nullptr) return 0;
+    if(curr == nullptr) return nullptr;
     else{
         if(curr->get_left() == n || curr->get_right() == n)
             return curr;
