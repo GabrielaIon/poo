@@ -12,29 +12,29 @@ Arbore_AVL::~Arbore_AVL() {
 
 Nod_AVL * Arbore_AVL::LLR(Nod_AVL *cur) {
     Nod_AVL* newN = cur->get_left();
-    cur->get_left() == newN->get_right();
-    newN->get_right() == cur;
-    newN->balance_factor = height(newN->get_left()) - height(newN->get_right());
-    newN->balance_factor = height(cur->get_left()) - height(cur->get_right());
+    cur->set_left(newN->get_right());
+    newN->set_right(cur);
+    newN->set_balance(height(newN->get_left()) - height(newN->get_right())) ;
+    newN->set_balance( height(cur->get_left()) - height(cur->get_right()));
     return newN;
 }
 
 Nod_AVL * Arbore_AVL::LRR(Nod_AVL *cur) {
-    cur->get_left() == RRR(cur->get_left());
+    cur->set_left(RRR(cur->get_left())) ;
     return LLR(cur);
 }
 
 Nod_AVL * Arbore_AVL::RRR(Nod_AVL *cur) {
     Nod_AVL* newN = cur->get_right();
-    cur->get_right() == newN->get_left();
-    newN->get_left() == cur;
-    newN->balance_factor = height(newN->get_left()) - height(newN->get_right());
-    cur->balance_factor = height(cur->get_left()) - height(cur->get_right());
+    cur->set_right(newN->get_left());
+    newN->set_left(cur);
+    newN->set_balance(height(newN->get_left()) - height(newN->get_right()));
+    cur->set_balance(height(cur->get_left()) - height(cur->get_right())) ;
     return newN;
 }
 
 Nod_AVL * Arbore_AVL::RLR(Nod_AVL *cur) {
-    cur->get_right() == LLR(cur->get_right());
+    cur->set_right(LLR(cur->get_right())) ;
     return RRR(cur);
 }
 
@@ -42,14 +42,14 @@ int Arbore_AVL::balance(Nod_AVL *n) {
     if (n == nullptr) return 0;
     int leftheight = height(n->get_left());
     int rightheight = height(n->get_right());
-    n ->balance_factor = rightheight- leftheight;
-    return n->balance_factor;
+    n ->set_balance(rightheight- leftheight) ;
+    return n->get_balance();
 }
 
 void Arbore_AVL::rebalance(Nod_AVL *n) {
     while (n != nullptr){
         balance(n);
-        if(n->balance_factor >=2 || n->balance_factor <= -2)
+        if(n->get_balance() >=2 || n->get_balance() <= -2)
             rotate(n);
         n = parent(n);
     }
@@ -57,10 +57,10 @@ void Arbore_AVL::rebalance(Nod_AVL *n) {
 
 void Arbore_AVL::rotate(Nod_AVL *n) {
     Nod_AVL *child;
-    if (n->balance_factor < -1){
+    if (n->get_balance() < -1){
         child = n->get_left();
         balance(child);
-        if (child->balance_factor == 1)
+        if (child->get_balance() == 1)
             LRR(n);
         else
             LLR(n);
@@ -68,7 +68,7 @@ void Arbore_AVL::rotate(Nod_AVL *n) {
     else {
         child = n-> get_right();
         balance(child);
-        if (child->balance_factor == -1)
+        if (child->get_balance() == -1)
             RLR(n);
         else
             RRR(n);
@@ -104,12 +104,12 @@ void Arbore_AVL::clear() {
 void Arbore_AVL::print_balance(Nod_AVL *curr, std::ostream &out) const {
     if(curr != nullptr){
         print_balance(curr->get_left(), out);
-        out << curr ->get_info() << "balance factor" << curr->balance_factor << std::endl;
+        out << curr ->get_info() << "balance factor" << curr->get_balance() << std::endl;
         print_balance(curr -> get_right(), out);
     }
 }
 
-std::ostream &operator<< (std::ostream &out, Arbore_AVL arb){
+std::ostream &operator<< (std::ostream &out, const Arbore_AVL& arb){
     arb.print_balance(arb.get_rad(), out);
     return out;
 }
