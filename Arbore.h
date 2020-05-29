@@ -1,5 +1,6 @@
-#ifndef UNTITLED13_ARBORE_H
-#define UNTITLED13_ARBORE_H
+
+#ifndef FINAL_ARBORE_H
+#define FINAL_ARBORE_H
 
 
 #include "Nod.h"
@@ -17,4 +18,4 @@ public:
     virtual void * find(int info) = 0;
 };
 
-#endif //UNTITLED13_ARBORE_H
+#endif //FINAL_ARBORE_H
