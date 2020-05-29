@@ -1,5 +1,10 @@
-#ifndef UNTITLED13_NOD_H
-#define UNTITLED13_NOD_H
+//
+// Created by Mini Wof on 5/29/2020.
+//
+
+#ifndef FINAL_NOD_H
+#define FINAL_NOD_H
+
 
 class Nod {
 protected:
@@ -20,4 +25,4 @@ public:
 };
 
 
-#endif //UNTITLED13_NOD_H
+#endif //FINAL_NOD_H
