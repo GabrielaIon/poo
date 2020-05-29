@@ -15,7 +15,7 @@ void Nod_AVL::set_balance(int n_balance) { balance_factor = n_balance; };
 
 Nod_AVL *Nod_AVL::get_left() { return static_cast<Nod_AVL*>(this->left); }
 
-void Nod_AVL::set_left(Nod_AVL *n_left) { left = n_left; };
+void Nod_AVL::set_left(Nod_AVL *n_left) { left = n_left; }
 
 Nod_AVL *Nod_AVL::get_right() { return static_cast<Nod_AVL*>(this->right); };
 
