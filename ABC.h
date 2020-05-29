@@ -1,6 +1,3 @@
-//
-// Created by Mini Wof on 5/29/2020.
-//
 
 #ifndef FINAL_ABC_H
 #define FINAL_ABC_H
